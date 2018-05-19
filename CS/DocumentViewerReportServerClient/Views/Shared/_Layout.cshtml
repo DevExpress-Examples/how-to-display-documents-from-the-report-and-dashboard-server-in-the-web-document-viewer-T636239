@@ -1,0 +1,28 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>@ViewBag.Title</title>
+    
+    @Html.DevExpress().GetStyleSheets(
+        new StyleSheet { ExtensionSuite = ExtensionSuite.Report }
+    )
+    @Html.DevExpress().GetScripts( 
+        new Script { ExtensionSuite = ExtensionSuite.Report }
+    )
+    <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <div class="content-wrapper">
+        <div class="content">
+            @RenderBody()
+        </div>
+
+        <div class="footer">
+            <p>&copy; @DateTime.Now.Year - DevExpress ASP.NET project copyright</p>
+        </div>
+    </div>
+</body>
+</html>

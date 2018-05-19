@@ -1,0 +1,7 @@
+@model DocumentViewerReportServerClient.Models.ReportViewerModel
+
+@Html.DevExpress().WebDocumentViewer(settings => {
+    settings.Name = "WebDocumentViewer";
+    settings.SettingsRemoteSource.ServerUri = Model.ServerUri;
+    settings.SettingsRemoteSource.AuthToken = Model.AuthToken;
+}).Bind(Model.ReportUrl).GetHtml()
