@@ -19,8 +19,12 @@ namespace DocumentViewerReportServerClient.Models {
                 { "username", DOCUMENT_VIEWER_ACCOUNT_LOGIN },
                 { "password", REPORT_SERVER_PASSWORD }
             });
-            HttpResponseMessage result = MvcApplication.httpClient.PostAsync(new Uri(REPORT_SERVER_URI + "/oauth/token"), httpContent).Result;
-            return (result.Content.ReadAsAsync<Token>().Result).AuthToken;
+            HttpResponseMessage response = MvcApplication.httpClient.PostAsync(new Uri(REPORT_SERVER_URI + "/oauth/token"), httpContent).Result;
+            if(response.IsSuccessStatusCode) {
+                return (response.Content.ReadAsAsync<Token>().Result).AuthToken;
+            } else {
+                throw new Exception((int)response.StatusCode + "-" + response.StatusCode.ToString());
+            }
         }
 
         public static List<DocumentItem> GetReports()

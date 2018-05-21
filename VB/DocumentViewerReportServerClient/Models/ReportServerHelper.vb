@@ -19,8 +19,12 @@ Namespace DocumentViewerReportServerClient.Models
                 { "username", DOCUMENT_VIEWER_ACCOUNT_LOGIN }, _
                 { "password", REPORT_SERVER_PASSWORD } _
             })
-            Dim result As HttpResponseMessage = MvcApplication.httpClient.PostAsync(New Uri(REPORT_SERVER_URI & "/oauth/token"), httpContent).Result
-            Return (result.Content.ReadAsAsync(Of Token)().Result).AuthToken
+            Dim response As HttpResponseMessage = MvcApplication.httpClient.PostAsync(New Uri(REPORT_SERVER_URI & "/oauth/token"), httpContent).Result
+            If response.IsSuccessStatusCode Then
+                Return response.Content.ReadAsAsync(Of Token).Result.AuthToken
+            Else
+                Throw New Exception((CType(response.StatusCode, Integer).ToString + ("-" + response.StatusCode.ToString)))
+            End If
         End Function
 
         Public Shared Function GetReports() As List(Of DocumentItem)
