@@ -35,7 +35,7 @@ namespace DocumentViewerReportServerClient.Models {
                 RequestUri = new Uri(REPORT_SERVER_URI + "/api/documents")
             };
             var client = MvcApplication.httpClient;
-            client.DefaultRequestHeaders.Add(HttpRequestHeader.Authorization.ToString(), "Bearer " + GetToken());
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", GetToken());
             HttpResponseMessage result = client.SendAsync(message).Result;
             List<DocumentItem> documents = JsonConvert.DeserializeObject<List<DocumentItem>>(result.Content.ReadAsStringAsync().Result);
             return documents.Where(document => document.documentType == "Report").ToList();

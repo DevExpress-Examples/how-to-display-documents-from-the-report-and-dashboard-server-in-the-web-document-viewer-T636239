@@ -9,7 +9,7 @@ Imports Newtonsoft.Json
 
 Namespace DocumentViewerReportServerClient.Models
     Public Class ReportServerHelper
-        Public Const REPORT_SERVER_URI As String = "https://my-report-server.com" 'Your Report Server URL
+        Public Const REPORT_SERVER_URI As String = "https://example.com" 'Your Report Server URL
         Private Const DOCUMENT_VIEWER_ACCOUNT_LOGIN As String = "DocumentViewer"
         Private Const REPORT_SERVER_PASSWORD As String = "MyPassword"
 
@@ -33,7 +33,7 @@ Namespace DocumentViewerReportServerClient.Models
                 .RequestUri = New Uri(REPORT_SERVER_URI & "/api/documents") _
             }
             Dim client = MvcApplication.httpClient
-            client.DefaultRequestHeaders.Add(HttpRequestHeader.Authorization.ToString(), "Bearer " & GetToken())
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", GetToken())
             Dim result As HttpResponseMessage = client.SendAsync(message).Result
             Dim documents As List(Of DocumentItem) = JsonConvert.DeserializeObject(Of List(Of DocumentItem))(result.Content.ReadAsStringAsync().Result)
             Return documents.Where(Function(document) document.documentType = "Report").ToList()
