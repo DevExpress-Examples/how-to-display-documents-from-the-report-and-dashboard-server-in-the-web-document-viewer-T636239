@@ -9,7 +9,7 @@ using Newtonsoft.Json;
 
 namespace DocumentViewerReportServerClient.Models {
     public class ReportServerHelper {
-        public const string REPORT_SERVER_URI = "https://my-report-server.com";  //Your Report Server URL
+        public const string REPORT_SERVER_URI = "https://example.com";  //Your Report Server URL
         private const string DOCUMENT_VIEWER_ACCOUNT_LOGIN = "DocumentViewer";
         private const string REPORT_SERVER_PASSWORD = "MyPassword";
 
